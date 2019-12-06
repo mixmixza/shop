@@ -28,7 +28,21 @@
                     <li><a href="#">หน้าหลัก</a></li>
                     <li><a href="#">เกี่ยวกับ</a></li>
                     <li><a href="#">ติดต่อ</a></li>
+                    <li><a href="newproduct.php">เพิ่มสินค้า</a></li>
                 </ul>
+                <ul class="nav navbar-nav navbar-left">
+                <li  class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        ALL Product <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                    <li><a href="index.php?menu=notebook">notebook</a></li>
+                    <li><a href="index.php?menu=tel">tel</a></li>
+                    <li><a href="index.php?menu=shoe">shoe</a></li>
+                    </ul>
+                </li>
+                </ul>
+
                 <ul class="nav navbar-nav navbar-right">
                 <?php 
                     if(isset($_SESSION['id'])){
@@ -72,7 +86,34 @@
     <div class="container">
            <div class = "row">
            <?php
-                $sql = "SELECT * FROM product ORDER BY id";
+                if(isset($_GET['menu'])){
+                    $menu = $_GET['menu'];
+                }
+                else{
+                    $menu="";
+                }
+                switch($menu){
+                    case "notebook":{
+                        $page = "product";
+                        $id = "notebook";
+                        break;
+                    }
+                    case "tel":{
+                        $page = "product2";
+                        $id = "tel";
+                        break;
+                    }
+                    case "shoe":{
+                        $page = "product3";
+                        $id = "shoe";
+                        break;
+                    }
+                    default:{
+                        $page = "product";
+                        $id = "computer";
+                    }
+                } 
+                $sql = "SELECT * FROM $page ORDER BY id";
                 $result = $conn->query($sql);
                 if(!$result){
                     echo "Error during data retrieval";
@@ -83,7 +124,7 @@
                 ?>
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="thumbnail">
-                <a href="productdetail.php?pid=<?php echo $prd->id;?>">
+                <a href="productdetail.php?pid=<?php echo $prd->id; ?>&category=<?php echo $id;?>">
                     <img src="images/products/<?php echo $prd->picture;?>" alt=""></a>
                     <div class="caption">
                         <h3><?php echo $prd->name?></h3>

@@ -106,6 +106,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                        <label for="picture" class="control-label col-md-3">Picture: </label>
+                    <div class="col-md-9">
+                        <input type="radio" name="rdoType" value="notebook" checked required> notebook</label>
+                        <input type="radio" name="rdoType" value="tel"> tel</label>
+                        <input type="radio" name="rdoType" value="shoe"> shoe</label>
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-md-9 col-md-offset-3">
                     <button type="submit" class="btn btn-primary">Save</button>
                     <button type="submit" class="btn btn-danger">Reset</button>

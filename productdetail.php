@@ -7,17 +7,35 @@
         header("Location:index.php");
     }
     include("connect.php");
-    $sql = "SELECT * FROM product WHERE id = $pid";
-    $result = $conn->query($sql);
+    $menu = $_GET['category'];
+    switch($menu){
+        case "notebook":{
+            $page = "product";
+            break;
+        }
+        case "tel":{
+            $page = "product2";
+            break;
+        }
+        case "shoe":{
+            $page = "product3";
+            break;
+        }
+        default:{
+            $page = "product";
+        }
+    } 
+    $sql = "SELECT * FROM $page WHERE id=$pid";
+    $result=$conn->query($sql);
     if(!$result){
         echo "Error: ".$conn->error;
     }
     else{
         if($result->num_rows>0){
-            $prd= $result->fetch_object();
+            $prd = $result->fetch_object();   
         }
         else{
-            $prd = NULL;
+            $prd=NULL;
         }
     }
 ?>

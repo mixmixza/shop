@@ -23,7 +23,30 @@
     //echo "Error:" .$_FILES["filePic"]["error"] ."<br>";
 
     move_uploaded_file($_FILES["filePic"]["tmp_name"],"images/products/" .$_FILES["filePic"]["name"]);
-    $sqlInsert = "INSERT INTO product (name,description,price,unitInStock,picture)VALUES('$name','$desc',$price,$unitInStock,'$filename')";
+    if(isset($_POST['rdoType'])){
+        $menu = $_POST['rdoType'];
+    }
+    else{
+        $menu="";
+    }
+    switch($menu){
+        case "notebook":{
+            $page = "product";
+            break;
+        }
+        case "tel":{
+            $page = "product2";
+            break;
+        }
+        case "shoe":{
+            $page = "product3";
+            break;
+        }
+        default:{
+            $page = "product";
+        }
+    }
+    $sqlInsert = "INSERT INTO $page (name,description,price,unitInStock,picture)VALUES('$name','$desc',$price,$unitInStock,'$filename')";
     $result = $conn->query($sqlInsert);
     if($result){
         echo"<script> alert('Upload Complete');</script>";
